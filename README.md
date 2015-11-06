@@ -6,6 +6,7 @@ Project name: WAIFU 3X
 Objective: Create a friendly alarm clock using one to several LED matrix displays.
 
 **ABSTRACT**
+
 This repository contains the files required to light up a 7-segment LED matrix display with the Arduino library MAX7219.
 
 The Arduino library for MAX7219 is called LedControl and you can read more about it here: 
