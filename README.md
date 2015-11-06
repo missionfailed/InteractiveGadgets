@@ -19,9 +19,9 @@ http://www.instructables.com/id/Room-Temperature-in-Dot-Matrix-Display-with-Ardu
 
 **Project Files**
 
--matrixDisplay.ino
--licensee.txt
--README.md
+* matrixDisplay.ino
+* license.txt
+* README.md
 
 **How to run the project**
 
