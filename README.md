@@ -1,7 +1,9 @@
 # InteractiveGadgets
-CS 207- Building Interactive Gadgets Project
+**CS 207- Building Interactive Gadgets Project**
+
 Project name: WAIFU 3X
-Objective: Create a friendly alarm clock using a LED matrix display.
+
+Objective: Create a friendly alarm clock using one to several LED matrix displays.
 
 **ABSTRACT**
 This repository contains the files required to light up a 7-segment LED matrix display with the Arduino library MAX7219.
@@ -14,6 +16,12 @@ http://www.instructables.com/id/Room-Temperature-in-Dot-Matrix-Display-with-Ardu
 
 **CONTENTS**
 
+**Project Files**
+
+-matrixDisplay.ino
+-licensee.txt
+-README.md
+
 **How to run the project**
 
 1. Download matrixDisplay.ino
@@ -22,12 +30,15 @@ http://www.instructables.com/id/Room-Temperature-in-Dot-Matrix-Display-with-Ardu
 Sketch -> Include Library -> Manage Libraries... -> (look for LedControl) -> Install
 4. Verify and Run
 
-_TESTING LISTS_
-1. Item 1
-2. Item 2
-3. Item 3
-   * Item 3a
-   * Item 3b
+**CURRENT STATUS OF PROJECT**
+
+The project up to date displays two digits on one LED matrix display. Next step is to modify the program for displaying in two of them.
+
+**LICENSE**
+
+WTFPL License - Official Text included in this repo under _license.txt_
+
+![WTFPL License](http://www.wtfpl.net/wp-content/uploads/2012/12/logo-220x1601.png)
 
 
 
