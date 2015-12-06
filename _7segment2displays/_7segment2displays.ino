@@ -1,3 +1,6 @@
+#include <Time.h>
+#include <TimeAlarms.h>
+
 #define LATCH 4
 #define CLK 3
 #define DATA 2
@@ -7,9 +10,10 @@
 #define DATA2 5
 
 //pins
-const int buttonpin1 = 10;     // the number of the pushbutton1 pin
-const int buttonpin2 = 11;     // the number of the pushbutton2 pin
-const int ledpin = 9;
+const int buttonpin1 = 10;     // the number of the pushbutton1 pin set time
+const int buttonpin2 = 11;     // the number of the pushbutton2 pin set time
+const int buttonpin3 = 12;     //set alarm
+const int ledpin = 13;
 const int piezopin = 8;
 
 //numbers
@@ -21,6 +25,7 @@ byte digits4[10]= {~B01000000, ~B11110010, ~B10001000, ~B10100000, ~B00110011, ~
 int i;
 int buttonState1 = 0;         // variable for reading the pushbutton1 status
 int buttonState2 = 0;         // variable for reading the pushbutton2 status
+int buttonState3 = 0;
 
 //piezo variables
 int length = 15; // the number of notes
@@ -28,8 +33,17 @@ char notes[] = "ccggaagffeeddc "; // a space represents a rest
 int beats[] = { 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 4 };
 int tempo = 300;
 
+//time variables
+time_t t;
+int settingAlarm;
+int timechanger;
+int alarm[] = {100,100};//set alarm at an impossible time
+
 void setup()
 {
+  t = now();
+  settingAlarm=0;
+  timechanger=0;
  //Seven segment displays
   pinMode(LATCH, OUTPUT);
   pinMode(CLK, OUTPUT);
@@ -42,6 +56,7 @@ void setup()
   //Buttons
   pinMode(buttonpin1, OUTPUT);
   pinMode(buttonpin2, OUTPUT);
+  pinMode(buttonpin3, OUTPUT);
 
   //LED and Piezo
   pinMode(ledpin, OUTPUT);
@@ -51,46 +66,142 @@ void setup()
 
 void loop()
 {
-    buttonState1=digitalRead(buttonpin1);
-    alarmSounds(buttonState1);
-
-    if(buttonState1==HIGH)
-    {
-       Serial.println("pressed1");
-    }
      
+    int minutes,minutes1,minutes2;
+    int seconds,seconds1,seconds2;
 
-
-    buttonState2=digitalRead(buttonpin2);
-
-    if(buttonState2==HIGH)
-      Serial.println("pressed2");
-
-    
-    
-    for(int i=0; i<10; i++)
-    {
-      for(int j=0; j<10; j++)
-      {
-       digitalWrite(LATCH, LOW);
-       shiftOut(DATA, CLK, MSBFIRST, digits1[i]); // digitTwo
-       shiftOut(DATA, CLK, MSBFIRST, digits2[j]); // digitOne
-       digitalWrite(LATCH, HIGH);
-       
-       digitalWrite(LATCH2, LOW);
-       shiftOut(DATA2, CLK2, MSBFIRST, digits3[j]); // digitTwo
-       shiftOut(DATA2, CLK2, MSBFIRST, digits4[i]); // digitTwo
-       digitalWrite(LATCH2, HIGH);
-       delay(1000);
-      }
+    minutes=minute();
+    seconds=second();
+        
+    if(minutes>=10)
+    {//Get minute
+      minutes1= minutes/10;
+      minutes2= minutes%10;
     }
+    else
+    {
+      minutes1=0;
+      minutes2=minutes;
+    }
+    
+    if(seconds>=10)
+    {//Get second
+      seconds1= seconds/10;
+      seconds2= seconds%10;
+    }
+    else
+    {
+      seconds1=0;
+      seconds2=seconds;
+    }
+    
+    //Read from alarm button, see if user wants to set the alarm
+    buttonState3=digitalRead(buttonpin3);
+
+    if(buttonState3==HIGH)
+    {//Press the button once to set the alarm, press the button again to let the clock continue
+        if(settingAlarm==0)
+          settingAlarm=1;
+        else if(settingAlarm==1)
+          settingAlarm=2;  
+        else if(settingAlarm==2)
+          settingAlarm=0;
+    }
+    
+    if(settingAlarm==0)
+    {//if no alarm is being set continue displaying current time   
+      writeToSegments(minutes1,minutes2,seconds1,seconds2,0);
+
+      //ALLOW DISPLAY TO SHOW TIME BEFORE SETTING OFF THE ALARM
+      if(alarm[1]==seconds && alarm[0]==minutes)
+      {
+         alarmSounds(1);
+         digitalWrite(ledpin,LOW);
+      }
+      
+      
+      timechanger=0;
+    }
+    else
+    {//if alarm is being set read from the buttons to set the alarm
+        
+       buttonState1=digitalRead(buttonpin1);
+       buttonState2=digitalRead(buttonpin2);
+       int changeTime1, changeTime2;
+
+       if(buttonState2==HIGH)
+       {
+          if (timechanger>=59)
+            timechanger=0;
+          else
+           timechanger++;
+       }
+       if(buttonState1==HIGH)
+       {
+          if (timechanger<=0)
+            timechanger=59;
+          else
+           timechanger--;
+                    
+       }
+
+        if(timechanger>=10)
+        {//Get second
+          changeTime1= timechanger/10;
+          changeTime2= timechanger%10;
+        }
+        else
+        {
+          changeTime1=0;
+          changeTime2=timechanger;
+        }
+
+       if(settingAlarm==1)
+       {
+           writeToSegmentPair1(changeTime1,changeTime2,0);
+           alarm[0]=timechanger;
+       }   
+       else if (settingAlarm==2)
+       {
+          writeToSegmentPair2(changeTime1,changeTime2,0);   
+          alarm[1]=timechanger;  
+       }
+
+       if(alarm[0]!=100 && alarm[1]!=100)
+          digitalWrite(ledpin,HIGH);   
+   
+    }
+             
+    delay(1000); 
     
     
 }
 
+void writeToSegments(int min1, int min2, int sec1, int sec2, int delayy)
+{
+       writeToSegmentPair1(min1,min2,delayy);
+       writeToSegmentPair2(sec1,sec2,delayy);
+}
+
+void writeToSegmentPair1(int min1, int min2, int delayy)
+{
+       digitalWrite(LATCH, LOW);
+       shiftOut(DATA, CLK, MSBFIRST, digits1[min1]); // digit1
+       shiftOut(DATA, CLK, MSBFIRST, digits2[min2]); // digit2
+       digitalWrite(LATCH, HIGH);
+}
+
+void writeToSegmentPair2(int sec1, int sec2, int delayy)
+{
+       digitalWrite(LATCH2, LOW);
+       shiftOut(DATA2, CLK2, MSBFIRST, digits3[sec2]); // digit4
+       shiftOut(DATA2, CLK2, MSBFIRST, digits4[sec1]); // digit3
+       digitalWrite(LATCH2, HIGH); 
+}
+
 void alarmSounds(int high)
 {
-    if(high==HIGH)
+    if(high==1)
     {
       for (int i = 0; i < length; i++)
       {
