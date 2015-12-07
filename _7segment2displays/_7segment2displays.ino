@@ -9,6 +9,10 @@
 #define CLK2 6
 #define DATA2 5
 
+#define LATCH3 A2
+#define CLK3 A1
+#define DATA3 A0
+
 //pins
 const int buttonpin1 = 10;     // the number of the pushbutton1 pin set time
 const int buttonpin2 = 11;     // the number of the pushbutton2 pin set time
@@ -33,6 +37,9 @@ char notes[] = "ccggaagffeeddc "; // a space represents a rest
 int beats[] = { 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 4 };
 int tempo = 300;
 
+//matrix display
+byte matrix1[8]= {B11111111,B10101010,~B10101010,B10101010, B00001111,B11001100,B00110011,B10101010};
+
 //time variables
 time_t t;
 int settingAlarm;
@@ -51,6 +58,11 @@ void setup()
   pinMode(LATCH2, OUTPUT);
   pinMode(CLK2, OUTPUT);
   pinMode(DATA2, OUTPUT);
+
+  //matrix
+  pinMode(LATCH3, OUTPUT);
+  pinMode(CLK3, OUTPUT);
+  pinMode(DATA3, OUTPUT);
   Serial.begin(9600);
 
   //Buttons
@@ -172,7 +184,7 @@ void loop()
    
     }
              
-    delay(1000); 
+    delay(200); 
     
     
 }
@@ -199,6 +211,26 @@ void writeToSegmentPair2(int sec1, int sec2, int delayy)
        digitalWrite(LATCH2, HIGH); 
 }
 
+void displayMatrix(int on, int delayy)
+{
+       if(on)
+       {
+        for(int i=0; i<4 ; i++)
+        {
+                 digitalWrite(LATCH3, LOW);
+                 shiftOut(DATA3, CLK3, MSBFIRST, matrix1[i]); // digit4
+                 digitalWrite(LATCH3, HIGH); 
+                 delay(delayy);
+        }
+       }
+       else
+       {
+                 digitalWrite(LATCH3, LOW);
+                 shiftOut(DATA3, CLK3, MSBFIRST, B00000000); // digit4
+                 digitalWrite(LATCH3, HIGH); 
+       }
+}
+
 void alarmSounds(int high)
 {
     if(high==1)
@@ -218,10 +250,16 @@ void alarmSounds(int high)
     }    
     }
 
+    //Turn off the lights
+     digitalWrite(LATCH3, LOW);
+     shiftOut(DATA3, CLK3, MSBFIRST, B00000000);
+     digitalWrite(LATCH3, HIGH); 
+
 }
 
 void playTone(int tone, int duration) {
-  for (long i = 0; i < duration * 1000L; i += tone * 2) {
+  for (long i = 0; i < duration * 1000L; i += tone * 2) 
+  {
     digitalWrite(piezopin, HIGH);
     delayMicroseconds(tone);
     digitalWrite(piezopin, LOW);
@@ -234,7 +272,14 @@ void playNote(char note, int duration) {
   int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
 
   // play the tone corresponding to the note name
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < 8; i++) 
+  {              
+    //LIGHT UP AS THE SOUND PLAYS
+    digitalWrite(LATCH3, LOW);
+    shiftOut(DATA3, CLK3, MSBFIRST, matrix1[i]);
+    digitalWrite(LATCH3, HIGH); 
+
+    //AND PLAY TONE
     if (names[i] == note) {
       playTone(tones[i], duration);
     }
