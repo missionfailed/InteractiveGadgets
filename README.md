@@ -3,23 +3,20 @@
 
 Project name: WAIFU 3X
 
-Objective: Create a friendly alarm clock using one to several LED matrix displays.
+Objective: Create a timer using 7-segment displays, and led matrix, buttons, and a piezo speaker
 
 **ABSTRACT**
 
-This repository contains the files required to light up a 7-segment LED matrix display with the Arduino library MAX7219.
+This repository contains the files required to keep track of time, the TIME library
 
-The Arduino library for MAX7219 is called LedControl and you can read more about it here: 
-http://playground.arduino.cc/Main/LedControl
-
-Special thanks to the following project for teaching me how the matrix display works:
-http://www.instructables.com/id/Room-Temperature-in-Dot-Matrix-Display-with-Arduin/step7/Quick-Tip/
+Read more about the library here:
+http://playground.arduino.cc/code/time
 
 **CONTENTS**
 
 **Project Files**
 
-* matrixDisplay.ino
+* _7segment2displays.ino
 * license.txt
 * README.md
 
@@ -27,13 +24,13 @@ http://www.instructables.com/id/Room-Temperature-in-Dot-Matrix-Display-with-Ardu
 
 1. Download matrixDisplay.ino
 2. Open it
-3. Install LedControl library by doing the following on the Arduino IDE:
-Sketch -> Include Library -> Manage Libraries... -> (look for LedControl) -> Install
+3. Install TIME library by doing the following on the Arduino IDE:
+Sketch -> Include Library -> Manage Libraries... -> (look for TIME) -> Install
 4. Verify and Run
 
 **CURRENT STATUS OF PROJECT**
 
-The project up to date displays two digits on one LED matrix display. Next step is to modify the program for displaying in two of them.
+Finished: A full working timer that has a time set by the user and turns on an alarm when the time is met.
 
 **LICENSE**
 
