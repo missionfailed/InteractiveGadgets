@@ -3,6 +3,7 @@
 
 Project name: WAIFU Timer
 Objective: Build a creative timer using 7-segment displays, an led matrix, buttons, and a piezo speaker
+
 ---
 
 **ABSTRACT**
@@ -18,12 +19,15 @@ In order to use this code you need an assembled circuit with the following confi
 ![Circuit Diagram](http://41.media.tumblr.com/06e87693569d048489fe0325bf053026/tumblr_nz0wa3muqY1qbngy8o1_500.jpg)
 
 
-*2 common cathode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 2,4,3 of the arduino (Data,Latch,Clock)
-*2 common anode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 5,6,7 of the arduino (Data,Latch,Clock)
-*1 LED matrix display connected to two daisy chained 595 shift registers.The first one should be connected on pins A0, A2, A1 of the arduino (Data,Latch,Clock)
-*3 buttons, connected to pins 10,11,12 of the Arduino
-*1 LED connected to pin 13 of the Arduino
-*1 piezo speaker connected to pin 8 of the Arduino
+* 2 common cathode 7-segment displays connected to two daisy chained 595 shift registers
+The first one should be connected on pins 2,4,3 of the arduino (Data,Latch,Clock)
+* 2 common anode 7-segment displays connected to two daisy chained 595 shift registers. 
+The first one should be connected on pins 5,6,7 of the arduino (Data,Latch,Clock)
+* 1 LED matrix display connected to two daisy chained 595 shift registers.
+The first one should be connected on pins A0, A2, A1 of the arduino (Data,Latch,Clock)
+* 3 buttons, connected to pins 10,11,12 of the Arduino
+* 1 LED connected to pin 13 of the Arduino
+* 1 piezo speaker connected to pin 8 of the Arduino
    
 **Project Files**
 
