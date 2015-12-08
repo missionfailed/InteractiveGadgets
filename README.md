@@ -43,7 +43,7 @@ First you need to install Arduino IDE
 To install the Arduino IDE go to the following link and select download for your operating system:
 https://www.arduino.cc/en/Main/Software
 
-Then you need to install the TIME library, which can be downloaded from here:
+Then you need to install the TIME library, which can be downloaded from here:  
 http://playground.arduino.cc/code/time
 
 **_To install the library you need to do one of the following:_**
