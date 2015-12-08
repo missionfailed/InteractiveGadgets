@@ -44,8 +44,7 @@ To install the Arduino IDE go to the following link and select download for your
 https://www.arduino.cc/en/Main/Software
 
 Then you need to install the TIME library, which can be downloaded from here:
-
-http://playground.arduino.cc/code/time
+   http://playground.arduino.cc/code/time
 
 To install the library you need to do one of the following:
 
@@ -66,8 +65,12 @@ After that is done, open the .ino file contained in the folder, allow Arduino ID
 
 **CURRENT STATUS OF THE PROJECT**
 
-A full working timer that has a time set by the user and turns on an alarm when the time is met. It includes an LED matrix display that lights up to the beat of a melody.
-The current alarm melody is named Imperial March, from the series Star Wars. It was obtained from Forum.arduino.cc,. (2015). Star Wars Imperial March With Piezo. Retrieved 8 December 2015, from http://forum.arduino.cc/index.php?topic=259450.0
+A full working timer that has a time set by the user and turns on an alarm when the time is met. 
+It includes an LED matrix display that lights up to the beat of a melody.
+
+
+__The current alarm melody is named Imperial March, from the series Star Wars. 
+   It was obtained from Forum.arduino.cc,. (2015). Star Wars Imperial March With Piezo. Retrieved 8 December 2015, from http://forum.arduino.cc/index.php?topic=259450.0__
 
 
 **LICENSE**
