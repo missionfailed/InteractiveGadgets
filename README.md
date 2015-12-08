@@ -33,7 +33,8 @@ _In order to use this code you need an assembled circuit with the following conf
    
 **Project Files**
 
-* _7segment2displays.ino
+* TIME library
+* _7segment2displays Arduino project
 * license.txt
 * README.md
 
