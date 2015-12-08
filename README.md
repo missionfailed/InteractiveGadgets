@@ -8,6 +8,7 @@
 ---
 
 **ABSTRACT**
+
 WAIFU Timer is an Arduino-based timer that counts minutes and seconds. When a user sets the timer, the clock starts counting until the set time and then turns on an alarm. This project uses the Arduino TIME library to keep track of the time, three buttons for setting up the alarm, a piezo speaker that plays a melody when the alarm goes off, and an LED matrix display that turns on different patterns of lights as the music is playing.
 
 Youtube video of working project: https://www.youtube.com/watch?v=g2EHhpU4nSY
@@ -60,7 +61,7 @@ You can manually extract the folder TIME included in this repository into the "L
 
 To run the project you need to download the folder _7segment2displays from this repository directly into your Arduino folder.
 
-After that is done, open the .ino file contained in the folder, allow Arduino IDE to load and then click on build.
+After that is done, open the .ino file contained in the folder, allow Arduino IDE to load and then click on _build_.
 
 
 **CURRENT STATUS OF THE PROJECT**
