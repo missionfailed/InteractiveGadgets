@@ -1,13 +1,20 @@
-#include <Time.h>
+/*
+Project WAIFU Timer
+Author: Graciela Garcia Diaz 
 
+With code for the music music obtained from user Willyboielectro at:
+Forum.arduino.cc,. (2015). Star Wars Imperial March With Piezo. Retrieved 8 December 2015, from http://forum.arduino.cc/index.php?topic=259450.0 */
+
+#include <Time.h>
+//Minute segments
 #define LATCH 4
 #define CLK 3
 #define DATA 2
-
+//Second segments
 #define LATCH2 7
 #define CLK2 6
 #define DATA2 5
-
+//Matrix display
 #define LATCH3 A2
 #define CLK3 A1
 #define DATA3 A0
@@ -30,11 +37,12 @@ int buttonState1 = 0;         // variable for reading the pushbutton1 status (Ch
 int buttonState2 = 0;         // variable for reading the pushbutton2 status (Change Digits UP or START TIMER)
 int buttonState3 = 0;         // variable for reading the pushbutton3 status (Set up alarm button)
 
-//piezo variables and muric
+//piezo variables and music, obtained (Forum.arduino.cc, 2015)
 int length = 15; // the number of notes
 char notes[] = "EDEDEbDCaceabegbCeEDEDEbDCaceabeCbaEDEDEbDCaceabegbCeEDEDEbDCaceabeCbabCDEgFEDfEDCeDCbeEeEDEDEDEDEDEDEbDCaceabegbCeEDEDE"; 
-//              E D E D E b D C a c e a b e g b C e E D|E D E b D C a c e a b e C b a E D E D E b D C|a c e a b e g b C e E D E D E b D C a c e a|b e C b a b C D E g F E D f E D C e D C|b e E e E D E D E D E D E D E D E b D C a c e a b e g b C e E D E D E b D C a c e a b e C b a
+
 int beats[] = { 1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,3,1,1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,3,1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,3,1,1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,3,1,1,1,2,1,1,1,2,1,1,1,2,1,1,1,3,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,3,1,1,1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,6};
+
 int tempo = 175;
 const int c = 261;
 const int d = 294;
@@ -271,7 +279,7 @@ void displayMatrix(int on, int delayy)
        }
 }
 
-//FOR IMPERIAL MARCH obtained from: http://forum.arduino.cc/index.php?topic=259450.0
+//The following code is for the song IMPERIAL MARCH (Forum.arduino.cc, 2015)
 void alarmSounds(int one)
 {
 
@@ -394,65 +402,6 @@ void secondSection()
 
   delay(350);
 }
-
-
-/* COMMENTED CODE, PLAYS TWINKLE TWINKLE OR FUR ELISE, but must change on loop to use function alarmSounds2
-void alarmSounds2(int high)
-{
-    if(high==1)
-    {
-      for (int i = 0; i < length; i++)
-      {
-      if (notes[i] == ' ') 
-      {
-        delay(beats[i] * tempo); // rest
-      } else 
-      {
-        playNote(notes[i], beats[i] * tempo);
-      }
-  
-      // pause between notes
-      delay(tempo / 2); 
-    }    
-    }
-
-    //Turn off the lights
-     digitalWrite(LATCH3, LOW);
-     shiftOut(DATA3, CLK3, MSBFIRST, B00000000);
-     digitalWrite(LATCH3, HIGH); 
-
-}
-
-void playTone(int tone, int duration) {
-  for (long i = 0; i < duration * 1000L; i += tone * 2) 
-  {
-    digitalWrite(piezopin, HIGH);
-    delayMicroseconds(tone);
-    digitalWrite(piezopin, LOW);
-    delayMicroseconds(tone);
-  }
-}
-
-void playNote(char note, int duration) {
-  //char names[] = { 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C' }; Twinkle Twinkle
- // int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
- char names[] = {'c','d','e','f','g','a','b','C', 'D', 'E', 'F', 'G', 'A', 'B', 'U'}; Fur Elise
-  int tones[] = {3822,3424,3033,2864,2551,2272,2024, 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956};
-
-
-  // play the tone corresponding to the note name
-  for (int i = 0; i < sizeof(tones); i++) 
-  {             
-    //AND PLAY TONE
-    if (names[i] == note) {
-      playTone(tones[i], duration);
-    }
-    //LIGHT UP AS THE SOUND PLAYS
-    digitalWrite(LATCH3, LOW);
-    shiftOut(DATA3, CLK3, MSBFIRST, matrix1[i%8]);
-    digitalWrite(LATCH3, HIGH); 
-  }
-}*/
 
 
 
