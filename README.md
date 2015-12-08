@@ -16,12 +16,14 @@ This repository contains the main program for WAIFU Timer and some files that re
 In order to use this code you need an assembled circuit with the following configuration:
 
 ![Circuit Diagram](http://41.media.tumblr.com/06e87693569d048489fe0325bf053026/tumblr_nz0wa3muqY1qbngy8o1_500.jpg)
-2 common cathode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 2,4,3 of the arduino (Data,Latch,Clock)
-2 common anode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 5,6,7 of the arduino (Data,Latch,Clock)
-1 LED matrix display connected to two daisy chained 595 shift registers.The first one should be connected on pins A0, A2, A1 of the arduino (Data,Latch,Clock)
-3 buttons, connected to pins 10,11,12 of the Arduino
-1 LED connected to pin 13 of the Arduino
-1 piezo speaker connected to pin 8 of the Arduino
+
+
+*2 common cathode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 2,4,3 of the arduino (Data,Latch,Clock)
+*2 common anode 7-segment displays connected to two daisy chained 595 shift registers. The first one should be connected on pins 5,6,7 of the arduino (Data,Latch,Clock)
+*1 LED matrix display connected to two daisy chained 595 shift registers.The first one should be connected on pins A0, A2, A1 of the arduino (Data,Latch,Clock)
+*3 buttons, connected to pins 10,11,12 of the Arduino
+*1 LED connected to pin 13 of the Arduino
+*1 piezo speaker connected to pin 8 of the Arduino
    
 **Project Files**
 
@@ -50,7 +52,9 @@ Go to Sketch -> Include Library -> Manage Libraries... -> (look for TIME) -> Ins
 
 You can manually extract the folder TIME included in this repository into the "Libraries" folder of your Arduino IDE. (Rememver Arduino IDE must be closed to do this)
 
-You're almost good to go. To run the project you need to download the folder _7segment2displays from this repository directly into your Arduino folder.
+**_You're almost good to go._**
+
+To run the project you need to download the folder _7segment2displays from this repository directly into your Arduino folder.
 
 After that is done, open the .ino file contained in the folder, allow Arduino IDE to load and then click on build.
 
